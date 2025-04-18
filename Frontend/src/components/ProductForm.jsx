@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
+import {
+  TextField, Button, Box, Typography
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 
 function ProductForm() {
   const [form, setForm] = useState({
@@ -8,6 +13,8 @@ function ProductForm() {
     stock: '',
     categoryId: ''
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,17 +28,20 @@ function ProductForm() {
       categoryId: parseInt(form.categoryId)
     });
     setForm({ name: '', price: '', stock: '', categoryId: '' });
+    navigate("/productos")
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Crear Producto</h2>
-      <input name="name" placeholder="Nombre" onChange={handleChange} value={form.name} />
-      <input name="price" placeholder="Precio" type="number" onChange={handleChange} value={form.price} />
-      <input name="stock" placeholder="Stock" type="number" onChange={handleChange} value={form.stock} />
-      <input name="categoryId" placeholder="ID Categoría" type="number" onChange={handleChange} value={form.categoryId} />
-      <button type="submit">Crear</button>
-    </form>
+    <Box component="form" onSubmit={handleSubmit} sx={{ mb: 4 }}>
+      <Typography variant="h6" gutterBottom>Crear Producto</Typography>
+
+      <TextField fullWidth margin="normal" label="Nombre" name="name" value={form.name} onChange={handleChange} />
+      <TextField fullWidth margin="normal" label="Precio" name="price" type="number" value={form.price} onChange={handleChange} />
+      <TextField fullWidth margin="normal" label="Stock" name="stock" type="number" value={form.stock} onChange={handleChange} />
+      <TextField fullWidth margin="normal" label="ID Categoría" name="categoryId" type="number" value={form.categoryId} onChange={handleChange} />
+
+      <Button type="submit" variant="contained" color="primary">Crear</Button>
+    </Box>
   );
 }
 
