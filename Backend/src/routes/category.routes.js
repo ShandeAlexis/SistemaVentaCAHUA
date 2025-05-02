@@ -1,5 +1,5 @@
 const express = require("express");
-const { prisma } = require("../db");
+const { prisma } = require("../config/db");
 
 const router = express.Router();
 
